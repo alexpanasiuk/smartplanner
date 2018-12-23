@@ -1,0 +1,152 @@
+.bg {
+    background: #fafafa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menuWrapper {
+    background: #c5382b;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    position: fixed;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.menuLogo {
+    color: #fff;
+    font-size: 20px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.menuText {
+    margin-left: 5px;
+}
+
+.menuItem {
+    cursor: pointer;
+}
+
+.app_holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.left_menu {
+    width: 33.33%;
+    padding: 100px 20px 50px;
+    border-right: 1px solid rgb(241, 241, 241);
+    min-height: 100vh;
+}
+
+.content {
+    width: 66.66%;
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 100px 60px 50px;
+}
+
+.project {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.project__title {
+    font-size: 25px;
+    columns: #333333;
+    margin-bottom: 30px;
+}
+
+.task {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(241, 241, 241);
+    align-items: center
+
+}
+
+.addTask {
+    display: block;
+    text-decoration: none;
+    color: #aeaeae;
+    margin-top: 15px;
+}
+
+.plus {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-right: 4px;
+    border-radius: 50%;
+    padding-right: 0.5px;
+}   
+
+.addTask:hover {
+    color: #c5382b;
+    cursor: pointer;
+}
+
+.addTask:hover .plus {
+    background: #c5382b;
+    color: #fff;
+}
+
+.taskFinished {
+    order: 100  ;
+}
+
+.finished {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    border:  1px solid #aeaeae;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+
+.finished::before {
+    display: none;
+}
+
+.finishedTrue::before,.finished:hover::before {
+    display: block;
+}
+
+.finishedTrue,.finished:hover {
+    border: none;
+    background: #fff;
+    color: #333333
+}
+
+.editIcon {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.icon {
+    padding: 2px 3px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.icon:hover {
+    opacity: 1;
+}

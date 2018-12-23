@@ -1,0 +1,97 @@
+.r_angle {
+    color: #aeaeae;
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.projects {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(241, 241, 241);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.projectsTitle {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.project {
+    padding: 5px 10px 5px 18px;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.projects .plus {
+    margin-left: auto;
+}
+
+.plus {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    padding-right: 1px;
+    color: #aeaeae;
+    cursor: pointer;
+}
+
+.plus:hover {
+    background: #c5382b;
+    color: #fff;
+}
+
+.addProject:hover .plus {
+    background: #c5382b;
+    color: #fff;
+}
+
+.addProject:hover .addProjectText {
+    color: #c5382b;
+}
+
+.addProject {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.addProjectText {
+    margin-left: 10px;
+    color: #aeaeae;
+}
+
+.ellipsis {
+    color: #aeaeae;
+    margin-left: auto;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 90%;
+    padding: 2px 20px;
+    background: #fff;
+    border: 1px solid #aeaeae;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,0.08);
+    border-radius: 5px;
+    min-width: 250px;
+    z-index: 99;
+}
+
+.dropdownItem {
+    margin: 8px 0;
+}
+
+.dropdownText {
+    margin-left: 10px;
+}

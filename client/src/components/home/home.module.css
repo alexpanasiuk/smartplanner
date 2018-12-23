@@ -1,0 +1,120 @@
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuWrapper {
+    border-bottom: 1px solid #aeaeae;
+}
+
+.logo {
+    color: #c5382b;
+    font-size: 20px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.logo::before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: url('/img/tick-inside-circle.png') no-repeat center center / cover;
+}
+
+.menuList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menuItem {
+    position: relative;
+}
+
+.menuItem:hover .menuButton::after {
+    opacity: 1;
+}
+
+.menuButton {
+    display: block;
+    padding: 15px 10px;
+    color: #aeaeae;
+}
+
+.menuButton::after {
+    display: block;
+    opacity: 0;
+    position: absolute;
+    content: '';
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: #c5382b;
+    transition: all 0.4s ease-out;
+}
+
+
+.firstScreen {
+    padding: 100px 0;
+}
+
+.firstScreen .container {
+    background: url('/img/relax.png') no-repeat center right / contain;  
+    background-size: 50%;
+}
+
+.textWrapper {
+    width: 50%;
+    max-width: 450px; 
+}
+
+.title {
+    font-size: 35px;
+    color: #c5382b;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 30px;
+    margin-bottom: 50px;
+    color: #6f6f6f;
+}
+
+.text {
+    font-size: 20px;
+    color: #6f6f6f;
+    line-height: 27px;
+    margin-bottom: 50px;
+}
+
+.cta {
+    display: block;
+    max-width: 280px;
+    background: #c5382b;
+    color: #fff;
+    font-size: 18px;
+    padding: 15px 0;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.cta:hover {
+    background: #e64e40;
+}

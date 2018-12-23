@@ -1,0 +1,62 @@
+.input, .submit {
+    width: 100%;
+    padding: 7px 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.input {
+    border: 1px solid #cecece;
+    margin-bottom: 10px;
+}
+
+.submit {
+    margin-bottom: 20px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    background: #c5382b;
+}
+
+.addTaskForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.popupForm {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.smallSubmit {
+    width: auto;
+    margin: 0 10px 0 0;
+}
+
+.link {
+    text-decoration: none;
+    color: #c5382b;
+}
+
+.error {
+    color: red;
+}
+
+.activationText {
+    color: #333;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.cansel {
+    color: #aeaeae;
+    padding: 5px 3px;
+    cursor: pointer;
+}
+
+.cansel:hover {
+    text-decoration: underline;
+}
+
