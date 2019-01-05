@@ -37,3 +37,16 @@
     background: #fff;
     padding: 20px 40px;
 }
+
+@media screen and (max-width: 768px) { 
+    .popup-content {
+        min-width: 400px;
+    }
+}
+
+@media screen and (max-width: 480px) { 
+    .popup-content {
+        min-width: initial;
+        width: 90%;
+    }
+}

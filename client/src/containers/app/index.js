@@ -13,7 +13,8 @@ class AppContainer extends Component {
     state = {
         showAddTask: false,
         currentProject: '',
-        updatedTask: null
+        updatedTask: null,
+        showMobileMenu: false
     }
 
     componentWillMount() {
@@ -32,6 +33,10 @@ class AppContainer extends Component {
             })
         }
 
+    }
+
+    toggleMobileMenu = () => {
+        this.setState({showMobileMenu: !this.state.showMobileMenu});
     }
 
     logOut = () => {
@@ -143,10 +148,15 @@ class AppContainer extends Component {
         </div>
     )
 
-    header = (
+    renderHeader =  () => (
         <div className={css.menuWrapper}>
             <div className={css.container}>
                 <div className={css.menu}>
+                   <FontAwesome 
+                        name={this.state.showMobileMenu ? 'close' : 'bars'}
+                        className={css.mobileMenuBtn}
+                        onClick={this.toggleMobileMenu}
+                    />
                     <Link to='/' className={css.menuLogo}>SmartPlanner</Link>
                     <ul className={css.menuList}>
                         <li className={css.menuItem} onClick={this.logOut}>
@@ -160,11 +170,12 @@ class AppContainer extends Component {
     )
 
     render() {
+        console.log(this.state.showMobileMenu ? 'close' : 'bars');
         return (
             <div className={css.bg}>
-                {this.header}
+                {this.renderHeader()}
                 <div id="app_holder" className={`${css.app_holder} ${css.container}`}>
-                    <div className={css.left_menu}>
+                    <div className={`${css.left_menu} ${this.state.showMobileMenu ? css.open : null}`}>
                         <ProjectsContainer 
                             projects={this.props.projects} 
                             dispatch={this.props.dispatch} 

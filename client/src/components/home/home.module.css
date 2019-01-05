@@ -118,3 +118,26 @@ a {
 .cta:hover {
     background: #e64e40;
 }
+
+
+@media screen and (max-width: 480px) { 
+    .menu {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .menuList {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .textWrapper {
+        width: 100%;
+    }
+    
+    .firstScreen .container {
+        background-position: bottom center;
+        background-size: 80%;
+        padding-bottom: 130px;
+    }
+}
