@@ -170,7 +170,6 @@ class AppContainer extends Component {
     )
 
     render() {
-        console.log(this.state.showMobileMenu ? 'close' : 'bars');
         return (
             <div className={css.bg}>
                 {this.renderHeader()}
@@ -203,9 +202,12 @@ class AppContainer extends Component {
                                 user={this.props.user}
                             />
                             : null}
-                        <div className={css.addTask} onClick={this.toggleAddTask}>
-                            <i className={css.plus}>+</i>Добавить задачу
-                        </div>
+                        {this.state.currentProject
+                            ? <div className={css.addTask} onClick={this.toggleAddTask}>
+                                <i className={css.plus}>+</i>Добавить задачу
+                            </div>
+                            : null 
+                        }
                     </div>                       
                 </div>
             </div>
