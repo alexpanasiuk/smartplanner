@@ -1,0 +1,5 @@
+# Ignore npm packages
+/**/node_modules/
+
+# Ignore environment vars
+\.env

@@ -44,7 +44,7 @@ export default class Register extends Component {
         let errors = [];
         
         //check email
-        let email = this.state.email.match(/[a-z]+([a-z0-9-_])*@[a-z]+\.[a-z]+/gi);
+        let email = this.state.email.match(/[a-z]+([a-z0-9-_.])*@[a-z]+\.[a-z]+/gi);
         if (!email && this.state.email) {
             errors.push('Введите реальный email адрес');
         } else if (email && email[0] !== this.state.email) {

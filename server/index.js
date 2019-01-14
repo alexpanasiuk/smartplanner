@@ -1,17 +1,21 @@
+// TODO: Check code and divide into parts
+// TODO: Registration checks
+
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./config');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session  = require('express-session');
+const path = require('path');
 
 const app = express();
 const { auth } = require('./middleware/auth');
 const DB_ERROR_CODE = 500;
 
 
-// TODO: Check code and divide into parts
-// TODO: Registration checks
+// Load static files
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Include middleware
 app.use(bodyParser.json());
@@ -42,6 +46,10 @@ const { Project } = require('./models/project')
 
 
 //============ GET ============= //
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.get('/api/auth', auth, (req, res) => {
     res.json({

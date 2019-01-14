@@ -204,7 +204,7 @@ class AppContainer extends Component {
                             : null}
                         {this.state.currentProject
                             ? <div className={css.addTask} onClick={this.toggleAddTask}>
-                                <i className={css.plus}>+</i>Добавить задачу
+                                <span className={css.plus}>+</span>Добавить задачу
                             </div>
                             : null 
                         }

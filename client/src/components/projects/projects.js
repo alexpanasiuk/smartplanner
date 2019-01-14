@@ -99,7 +99,7 @@ export default class Projects extends Component {
                 <div className={css.projects}>
                     <FontAwesome name='angle-right' className={css.r_angle}/>
                     <span className={css.projectsTitle}>Проекты:</span>
-                    <i className={css.plus} onClick={this.toggleAddProject}>+</i>
+                    <span className={css.plus} onClick={this.toggleAddProject}>+</span>
                 </div>
                 <ul>
                     {this.renderProjects(this.props.projects)}
@@ -120,7 +120,7 @@ export default class Projects extends Component {
                         />
                         : null}
                 <div className={css.addProject} onClick={this.toggleAddProject}>
-                    <i className={css.plus}>+</i>
+                    <span className={css.plus}>+</span>
                     <span className={css.addProjectText}>Добавить проект</span>
                 </div>
             </div>
