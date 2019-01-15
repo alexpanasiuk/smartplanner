@@ -35,6 +35,10 @@ app.use(passport.session());
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB_HOST, {
         useNewUrlParser: true,
+        auth: {
+            user: config.DB_USER,
+            password: config.DB_PASS
+          }
         })
     .then(() => console.log('Connected to db \
         \n ======================================================================='))

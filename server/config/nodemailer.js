@@ -3,11 +3,11 @@ const config = require('./index');
 
 
 let smtpConfig = {
-    host: 'smtp.gmail.com',
+    host: config.MAIL_HOST,
     port: 465,
     secure: true,
     auth: {
-        user: config.MAIL_SENDER,
+        user: config.MAIL_USER,
         pass: config.MAIL_PASS
     }
 };
