@@ -1,0 +1,30 @@
+.dropdown {
+    position: relative;
+}
+
+.toggleDropdown {
+    display: inline-block;
+}
+
+.contentWrapper {
+    background: #fff;
+    position: absolute;
+    right: -6px;
+    margin-top: 20px;
+    top: 100%;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    z-index: 110;
+}
+
+.contentWrapper::before {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: -21px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid #cecece;
+    z-index: 100;
+}
+

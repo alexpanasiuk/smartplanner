@@ -6,6 +6,7 @@ import css from './index.module.css';
 import AddTask from '../../components/forms/addTask';
 import FontAwesome from 'react-fontawesome';
 import ProjectsContainer from '../projects';
+import Tasks from '../../components/app/tasks/tasks';
 
 
 class AppContainer extends Component {
@@ -14,7 +15,10 @@ class AppContainer extends Component {
         showAddTask: false,
         currentProject: '',
         updatedTask: null,
-        showMobileMenu: false
+        showMobileMenu: false,
+        date: new Date(),
+        time: '',
+        isValidTime: true
     }
 
     componentWillMount() {
@@ -32,7 +36,53 @@ class AppContainer extends Component {
                 currentProject: nextProps.projects[0] ?  nextProps.projects[0] : ''
             })
         }
+    }
 
+    handleCalendarChange = (date) => this.setState({ date })
+
+    handleTimeChange = (e) => {
+        const time = e.target.value;
+        const isValidTime = this.isValidTime(time);
+        this.setState({time, isValidTime});
+    }
+
+    isValidTime = (time) => {
+        if (!time) return true;
+
+        const re = /[^0-9: ]/;
+        if (time.match(re)) return false;
+
+        const splitedTime = time.split(':');
+        if (splitedTime.length !== 2 || !splitedTime[1]) return false;
+
+        const hours = splitedTime[0].trim();
+        const minutes = splitedTime[1].trim();
+        
+        if (parseInt(hours) > 24 || parseInt(minutes) > 59) return false;
+        
+        return true;
+    }
+
+    updateTaskTime = (e) => {
+        let {date, time}  = this.state;
+        let newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        let [hours, minutes] = time.split(':');
+        if (time) {
+            hours = parseInt(hours);
+            minutes = parseInt(minutes);
+            newDate.setMinutes(newDate.getMinutes() + hours * 60 + minutes);
+        } else {
+            newDate.setMinutes(newDate.getMinutes() + 720);
+        }
+
+        let parent = e.target.parentNode;
+        while (!parent.dataset.taskid){
+            parent = parent.parentNode;
+        }
+        const taskId = parent.dataset.taskid;
+        const currentProject = this.state.currentProject;
+        const task = currentProject.tasks.find(task => task._id === taskId);
+        this.updateTask(e, null, task, newDate);
     }
 
     toggleMobileMenu = () => {
@@ -72,11 +122,15 @@ class AppContainer extends Component {
         }));
     }
 
-    prepereToUpdateTask = (e) => {
-        let taskId = e.target.parentNode.dataset.taskid;
-        let currentProject = this.state.currentProject;
-        let task = currentProject.tasks.find(task => task._id === taskId);
-        let tempProject = currentProject;
+    prepareToUpdateTask = (e) => {
+        let parent = e.target.parentNode;
+        while (!parent.dataset.taskid){
+            parent = parent.parentNode;
+        }
+        const taskId = parent.dataset.taskid;
+        const currentProject = this.state.currentProject;
+        const task = currentProject.tasks.find(task => task._id === taskId);
+        const tempProject = currentProject;
         tempProject.tasks = currentProject.tasks.map(task => {
             if (task._id === taskId) {
                 task.hidden = true
@@ -89,17 +143,29 @@ class AppContainer extends Component {
         })
     }
 
-    updateTask = (e, name) => {
-        let task = this.state.updatedTask;
+    updateTask = (e, name, task, finishTime) => {
+        const isUpdateDate = name ? false : true;
+        let timeSetted = task.timeSetted;
+
+        if (isUpdateDate) {
+            name = task.name
+            timeSetted = true;
+        } else {
+            task = this.state.updatedTask;
+            finishTime = task.finishTime;
+        } 
+
         this.props.dispatch(updateTask({
             projectId: this.state.currentProject._id,
             taskId: task._id,
             creator: task.creator,
-            finishTime: task.finishTime,
+            timeSetted: timeSetted,
+            finishTime: finishTime,
             name: name, 
             finished: task.finished
         }));
-        this.setState({ updatedTask: null})
+
+        if (!isUpdateDate) this.setState({ updatedTask: null})
     }
 
     canselUpdatingTask = () => {
@@ -115,7 +181,11 @@ class AppContainer extends Component {
     }
 
     deleteTask = (e) => {
-        let taskId = e.target.parentNode.dataset.taskid;
+        let parent = e.target.parentNode;
+        while (!parent.dataset.taskid){
+            parent = parent.parentNode;
+        }
+        let taskId = parent.dataset.taskid;
         let projectId = this.state.currentProject._id;
         this.props.dispatch(deleteTask({taskId, projectId}));
     }
@@ -124,27 +194,21 @@ class AppContainer extends Component {
         this.setState({showAddTask: !this.state.showAddTask});
     }
 
-    renderTasks = (tasks) => (
-        tasks.map((task, i) => (
-            !task.hidden
-                ?   <div key={i} className={`${css.task} ${task.finished ? css.taskFinished : ''}`} data-taskid={task._id}>
-                        <FontAwesome name='check-circle'
-                        className={`${css.finished} ${task.finished ? css.finishedTrue : ''}`} 
-                        onClick={this.finishTask}/>
-                        <span>{task.name}</span>
-                        <FontAwesome name='edit' className={`${css.icon} ${css.editIcon}`} onClick={this.prepereToUpdateTask}/>
-                        <FontAwesome name='trash' className={css.icon} onClick={this.deleteTask}/>
-                    </div>
-                : null
-        ))    
-    )
-
     renderProject = (project) => (
         <div className={css.project}>
             <div className={css.project__title}>
                 {project.name}
             </div>
-            {this.renderTasks(project.tasks)}
+            <Tasks
+                tasks={project.tasks}
+                {...this.state}
+                finishTask={this.finishTask}
+                handleCalendarChange={this.handleCalendarChange}
+                handleTimeChange={this.handleTimeChange}
+                updateTaskTime={this.updateTaskTime}
+                prepareToUpdateTask={this.prepareToUpdateTask}
+                deleteTask={this.deleteTask}
+            />
         </div>
     )
 

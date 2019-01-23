@@ -113,7 +113,7 @@ export default class Register extends Component {
                             onChange={this.handleInputConfirmPassword}
                             required="required"
                         />
-                        <button type="submit" className={css.submit}>Зарегистроваться</button>
+                        <button type="submit" className={css.submit}>Зарегистрироваться</button>
 
                         <p className={css.txt}>
                             Уже зарегистрированы?

@@ -1,0 +1,21 @@
+.inputWrapper {
+    margin-top: 15px;
+}
+
+.label {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.input {
+    border: 1px solid #cecece;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    max-width: 100px;
+    padding: 3px 5px;
+}
+
+.warning {
+    margin-left: 10px;
+    color: red;
+}

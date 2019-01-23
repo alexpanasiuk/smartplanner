@@ -56,8 +56,8 @@ export function addTask({name, creator, finishTime, projectId}) {
     }
 }
 
-export function updateTask({taskId, projectId, name, creator, finished, finishTime}) {
-    const request = axios.post('/api/updateTask', {taskId, name, creator, finished, finishTime, projectId})
+export function updateTask({taskId, projectId, name, creator, timeSetted, finished, finishTime}) {
+    const request = axios.post('/api/updateTask', {taskId, name, creator, finished, timeSetted, finishTime, projectId})
         .then(response => response.data);
     return {
         type: 'UPDATE_TASK',

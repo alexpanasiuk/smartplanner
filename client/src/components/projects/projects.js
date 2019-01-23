@@ -56,9 +56,9 @@ export default class Projects extends Component {
         let body = document.querySelector('body');
         dropdown.style = 'display: block;';
 
-        body.addEventListener('click', function(event) {
+        body.addEventListener('click', function _closeDropdown(event) {
             dropdown.style = '';
-            body.removeEventListener('click', this);
+            body.removeEventListener('click', _closeDropdown);
         });
     }
 

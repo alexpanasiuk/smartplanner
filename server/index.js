@@ -310,13 +310,14 @@ app.post('/api/updateProject', auth, (req, res) => {
 });
 
 app.post('/api/updateTask', (req, res) => {
-    const {name, creator, finishTime, finished, projectId, taskId} = req.body;
+    const {name, creator, finishTime, finished, timeSetted, projectId, taskId} = req.body;
     Project.findOneAndUpdate(
         {'_id': projectId , 'tasks._id': taskId},
         {   '$set': {
                 'tasks.$.name': name,
                 'tasks.$.creator': creator,
                 'tasks.$.finishTime': finishTime,
+                'tasks.$.timeSetted': timeSetted,
                 'tasks.$.finished': finished
             }
         },
@@ -388,7 +389,6 @@ app.delete('/api/deleteTask', (req, res) => {
         )
         
         .then( project => {
-            console.log(project);
             res.json({
                 success: true,
                 project

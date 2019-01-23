@@ -13,8 +13,11 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
 	finishTime: {
-        type: Date,
-        required: true
+        type: Date
+    },
+    timeSetted: {
+        type: Boolean,
+        default: false
     },
     finished: {
         type: Boolean,

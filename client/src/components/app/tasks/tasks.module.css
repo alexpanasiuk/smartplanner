@@ -1,0 +1,120 @@
+.task {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(241, 241, 241);
+    align-items: center
+
+}
+
+.taskText {
+    margin-right: auto;
+}
+
+.finished {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    border:  1px solid #aeaeae;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+
+.finished::before {
+    display: none; 
+}
+
+.finishedTrue::before,.finished:hover::before {
+    display: block;
+}
+
+.finishedTrue,.finished:hover {
+    border: none;
+    background: #fff;
+    color: #333333
+}
+
+.icon {
+    margin-left: 10px;
+    padding: 2px 3px;
+    opacity: 0.7;
+    cursor: pointer;
+    color: #333333
+}
+
+.icon:hover {
+    opacity: 1;
+}
+
+.inline {
+    display: inline;
+}
+
+.timeSubmitWrapper {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.timeSubmit {
+    background: #c5382b;
+    color: #fff;
+    padding: 3px 7px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+
+.disabled {
+    background: #cecece;
+    color: #666;
+    cursor: initial;
+}
+
+.timeSubmit:hover {
+    background: #e64e40;
+}
+
+.taskFinished {
+    order: 100  ;
+}
+
+.taskIconsWrapper {
+    float: right;
+}
+
+.dropdownItem {
+    width: 250px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.dropdownItem:hover {
+    background: #cecece;
+}
+
+.dropdownItem .icon {
+    margin-left: 0;
+    margin-right: 20px;
+    width: 25px;
+}
+
+.timeSetted {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+@media screen and (max-width: 768px) {
+    .task {
+        display: block;
+    }
+
+    .icon {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
