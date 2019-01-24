@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { loginUser } from '../../actions';
 import Login from '../../components/forms/login';
 import Popup from '../../hoc/popup/popup';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Projects from '../../components/projects/projects';
-import {addProject, updateProject, deleteProject} from '../../actions'
+import {addProject, updateProject, deleteProject} from '../../actions';
 
 export default class ProjectsContainer extends Component {
     
@@ -30,13 +30,12 @@ export default class ProjectsContainer extends Component {
     render() {
         return (
             <Projects projects={this.props.projects}
-            user={this.props.user}
-            addProject={this.addProject} 
-            updateProject={this.updateProject}
-            deleteProject={this.deleteProject}
-            setProject={this.props.setProject}/>
+                user={this.props.user}
+                addProject={this.addProject} 
+                updateProject={this.updateProject}
+                deleteProject={this.deleteProject}
+                setProject={this.props.setProject}
+            />
         )
     }
 }
-
-

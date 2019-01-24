@@ -22,17 +22,29 @@ function sendConfirmLink(email, name, link) {
         <a href="${link}">${link}</a>
     </p>
     `
-
-    // const textTemplate = `
-    // ${name}, спасибо за регистрацию. Перейдите по ссылке для активации аккунта 
-    // ${link}
-    // `
-
     const mailOptions = {
         from: config.MAIL_SENDER,
         to: email,
         subject: 'Подтверждение регистрации SmartPlanner',
-        // text: 'Plaintext version of the message',
+        html: htmlTemplate
+    }
+
+    return transporter.sendMail(mailOptions);
+}
+
+function sendInviteLink(email, name, projectName, link) {
+
+    const htmlTemplate = `
+        <p>
+            ${name}, Вас пригласили в проект ${projectName}. Перейдите по ссылке для подтверждения.
+            <br>
+            <a href="${link}">${link}</a>
+        </p>
+    `
+    const mailOptions = {
+        from: config.MAIL_SENDER,
+        to: email,
+        subject: 'Приглашение в проект SmartPlanner',
         html: htmlTemplate
     }
 
@@ -40,5 +52,6 @@ function sendConfirmLink(email, name, link) {
 }
 
 module.exports = {
-    sendConfirmLink
+    sendConfirmLink,
+    sendInviteLink
 };

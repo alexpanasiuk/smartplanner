@@ -83,6 +83,7 @@ class AppContainer extends Component {
         const currentProject = this.state.currentProject;
         const task = currentProject.tasks.find(task => task._id === taskId);
         this.updateTask(e, null, task, newDate);
+        document.querySelector('body').click(); // Close dropdown
     }
 
     toggleMobileMenu = () => {

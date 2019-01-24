@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const randomstring = require('randomstring');
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -30,7 +31,7 @@ const taskSchema = new mongoose.Schema({
 const projectSchema = new mongoose.Schema({
     name: {
         type: String,
-        trim: true, 
+        trim: true,  
         required: true,
 		maxlength: 100
     },
@@ -39,8 +40,22 @@ const projectSchema = new mongoose.Schema({
         type: ObjectId,
         required: true
     },
+    inviteSecret: {
+        type: String
+    },
     members: [ObjectId]
 });
+
+projectSchema.pre('save', function(next) {
+	let project = this;
+	
+	if (!project.inviteSecret) {
+        project.inviteSecret = randomstring.generate({length: 12});
+        next();
+	} else {
+		next();
+	}
+}); 
 
 const Project = mongoose.model('Project', projectSchema);
 

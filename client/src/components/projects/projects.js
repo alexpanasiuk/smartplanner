@@ -2,13 +2,16 @@ import React, { Component} from 'react';
 import FontAwesome from 'react-fontawesome';
 import css from './projects.module.css';
 import AddProject from '../../components/forms/addProject'
+import AddUser from '../forms/addUser';
+import axios from 'axios';
 
 export default class Projects extends Component {
     state = {
         showAddProject: false,
-        updatedProject: null
+        updatedProject: null,
+        openAddUser: false,
+        workWithProject: ''
     }
-
 
     prepereToUpdateProject = (e) => {
         e.stopPropagation();
@@ -62,6 +65,33 @@ export default class Projects extends Component {
         });
     }
 
+    openAddUser = (e) => {
+        let parent = e.target.parentNode;
+        while (!parent.dataset.projectid){
+            parent = parent.parentNode;
+        }
+        const projectId = parent.dataset.projectid;
+        this.setState({
+            openAddUser: !this.state.openAddUser,
+            workWithProject: projectId
+        });
+    }
+
+    toggleAddUser = (e) => {
+        this.setState({openAddUser: !this.state.openAddUser});
+    }
+
+    addUserToProject = (e, userEmail) => {
+        const projectId = this.state.workWithProject;
+        axios.post('/api/sendInviteLink', {projectId, userEmail})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+            this.setState({
+                openAddUser: false,
+                workWithProject: ''
+            });
+    }
+
     renderProjects = (projects) => {
         let updatedProject = this.state.updatedProject;
         return projects.length !== 0
@@ -79,19 +109,25 @@ export default class Projects extends Component {
         }
 
     dropdown = [
-        {
-            icon: 'edit',
-            text: 'Редактировать проект',
-            protected: false,
-            callback: this.prepereToUpdateProject
-        },
-        {
-            icon: 'trash',
-            text: 'Удалить проект',
-            protected: true,
-            callback: this.props.deleteProject
-        }
-    ]
+            {
+                icon: 'user-plus',
+                text: 'Добавить пользователя',
+                protected: false,
+                callback: this.openAddUser
+            },
+            {
+                icon: 'edit',
+                text: 'Редактировать проект',
+                protected: false,
+                callback: this.prepereToUpdateProject
+            },
+            {
+                icon: 'trash',
+                text: 'Удалить проект',
+                protected: true,
+                callback: this.props.deleteProject
+            }
+        ]
 
     render() {
         return (
@@ -123,6 +159,12 @@ export default class Projects extends Component {
                     <span className={css.plus}>+</span>
                     <span className={css.addProjectText}>Добавить проект</span>
                 </div>
+                {this.state.openAddUser
+                    ? <AddUser
+                        onClose={this.toggleAddUser}
+                        addUserToProject={this.addUserToProject}
+                    />
+                    : null}
             </div>
         )
     }

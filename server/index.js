@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session  = require('express-session');
 const path = require('path');
-
+const { sendInviteLink} = require('./config/nodemailer');
 const app = express();
 const { auth } = require('./middleware/auth');
 const DB_ERROR_CODE = 500;
@@ -106,6 +106,50 @@ app.get('/api/activation/:id/:token', (req, res) => {
         });
 });
 
+app.get('/api/addUserToProject/:secret/:projectId/:userId', (req, res) => {
+    const {secret, projectId, userId} = req.params;
+    let _project = {};
+    let _user = {};
+    Project.findById(projectId)
+        .then(project => {
+            if (!project) throw new Error('Incorrect link');
+            _project = project;
+            if (project.inviteSecret !== secret) throw new Error('Incorrect link');
+            return User.findById(userId);
+        })
+
+        .then(user => {
+            if (!user) throw new Error('Incorrect link');
+            _user = user;
+            user.projects.push(projectId);
+            return user.save();
+        })
+
+        .then(user => {
+            _project.members.push(user._id);
+            return _project.save();
+        })
+
+        .then(project => {
+            res.contentType = 'html';
+            res.send(`
+            <h2>${_user.name}, Вы подтвердили участие в проекте ${project.name}.
+            <script>
+                setTimeout(()=> window.location.href="${config.SITE_URL}", 3000)
+            </script>
+            `)
+        })
+
+        .catch(err => {
+            if (err.message === 'Incorrect link') {
+                res.send('Неверная ссылка');
+            } else {
+                res.sendStatus(DB_ERROR_CODE);
+                console.log(err);
+            }
+        });
+});
+
 app.get('/api/getProject', (req, res) => {
     Project.findById(req.query.id)
         .then( project => {
@@ -168,6 +212,29 @@ app.post('/api/login', (req, res, next) => {
             })
         });
     })(req, res, next);
+});
+
+app.post('/api/sendInviteLink', (req, res) => {
+    const {projectId, userEmail} = req.body;
+    let _project = {};
+    Project.findById(projectId)
+        .then(project => {
+            if (!project) throw new Error('Incorrect request');
+            _project = project;
+            return User.findOne({'email': userEmail});
+        })
+
+        .then(user => {
+            if (!user) throw new Error('Incorrect request');
+            const link = `${config.SERVER_URL}/api/addUserToProject/${_project.inviteSecret}/${_project._id}/${user._id}`;
+            sendInviteLink(user.email, user.name, _project.name, link);
+            res.json({success: true})
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(DB_ERROR_CODE);
+        });
 });
 
 app.post('/api/register', (req, res, next)=> {
