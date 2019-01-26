@@ -146,7 +146,7 @@ class AppContainer extends Component {
 
     updateTask = (e, name, task, finishTime) => {
         const isUpdateDate = name ? false : true;
-        let timeSetted = task.timeSetted;
+        let timeSetted = false;
 
         if (isUpdateDate) {
             name = task.name
@@ -154,6 +154,7 @@ class AppContainer extends Component {
         } else {
             task = this.state.updatedTask;
             finishTime = task.finishTime;
+            timeSetted = task.timeSetted;
         } 
 
         this.props.dispatch(updateTask({
