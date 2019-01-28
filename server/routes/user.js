@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const config = require('../config');
 const DB_ERROR_CODE = 500;
 
 const { auth } = require('../middleware/auth');
@@ -83,6 +84,7 @@ router.post('/login', (req, res, next) => {
             if (err) return next(err);
 
             res.json({
+                id: user._id,
                 name : user.name,
                 email: user.email,
                 isAuth: true

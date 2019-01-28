@@ -16,12 +16,12 @@ export default function Tasks(props) {
                         onClick={props.finishTask}/>
                         <span className={css.taskText}>{task.name}</span>
                         <div className={css.taskIconsWrapper}>
+                            <FontAwesome name='trash' className={css.icon} onClick={props.deleteTask} />                           
                             <Dropdown
                                 name={`task-calendar${i}`}
                                 component={task.timeSetted
-                                    ?   <span className={css.timeSetted}>
-                                            
-                                            {new Date(task.finishTime).toLocaleDateString().slice(0, -5)/* {`${task.finishTime.getDate()}.${task.finishTime.getMonth() + 1}`} */}
+                                    ?   <span className={css.timeSetted}>         
+                                            {new Date(task.finishTime).toLocaleDateString().slice(0, -5)}
                                         </span> 
                                     :   <FontAwesome name='calendar-o' className={css.icon}/>}
                                 className={css.inline}>
@@ -52,10 +52,6 @@ export default function Tasks(props) {
                                 <div className={css.dropdownItem} onClick={props.prepareToUpdateTask}>
                                     <FontAwesome name='edit' className={css.icon}/>
                                     <span className={css.dropdownText}>Редактировать</span>
-                                </div>
-                                <div className={css.dropdownItem} onClick={props.deleteTask}>
-                                    <FontAwesome name='trash' className={css.icon} />
-                                    <span className={css.dropdownText}>Удалить</span>
                                 </div>
                             </Dropdown>
                         </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const config = require('../config');
 
 const { sendInviteLink } = require('../config/nodemailer');
 const { auth } = require('../middleware/auth');
@@ -165,9 +166,9 @@ router.post('/updateProject', auth, (req, res) => {
                 }
             }
 
-            if ( !(project.creator.toString() === req.user._id.toString() || isMember) ) {
-                throw new Error('Permission denied');
-            }
+            // if ( !(project.creator.toString() === req.user._id.toString() || isMember) ) {
+            //     throw new Error('Permission denied');
+            // }
 
             return Project.findByIdAndUpdate(
                 {

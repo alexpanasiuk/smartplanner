@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getProjects, addTask, updateTask , deleteTask, logOut} from '../../actions';
+import { getProjects, addTask, updateTask , deleteTask, logOut, connectToSocket} from '../../actions';
 import css from './index.module.css';
 import AddTask from '../../components/forms/addTask';
 import FontAwesome from 'react-fontawesome';
 import ProjectsContainer from '../projects';
 import Tasks from '../../components/app/tasks/tasks';
-
 
 class AppContainer extends Component {
 
@@ -22,6 +21,10 @@ class AppContainer extends Component {
     }
 
     componentWillMount() {
+        if (this.props.user.isAuth) {
+            console.log('connect');
+            this.props.dispatch(connectToSocket(this.props.user));
+        }
         this.props.dispatch(getProjects());
     }
 

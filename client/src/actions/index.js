@@ -101,3 +101,10 @@ export function deleteProject({projectId}) {
         payload: request
     }
 }
+
+export function connectToSocket(user) {
+    return {
+        type: 'CONNECT_TO_SOCKET',
+        payload: user
+    }
+}

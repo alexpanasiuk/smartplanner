@@ -6,10 +6,11 @@ import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
 
+import socketMiddleware from './middleware/redux/socketMiddleware';
 import reducers from './reducers';
 import Routes from './routes';
 
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk, socketMiddleware('https://smart-planner.herokuapp.com'))(createStore);
 
 ReactDOM.render((
     <Provider store={createStoreWithMiddleware(reducers)} >

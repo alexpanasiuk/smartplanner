@@ -2,13 +2,16 @@
 // TODO: Registration checks
 
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const config = require('./config');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session  = require('express-session');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+io.origins('*:*');
 const path = require('path');
-const app = express();
 
 
 // Load static files
@@ -46,6 +49,9 @@ app.use('/api', require('./routes/project'));
 app.use('/api', require('./routes/task'));
 app.use('/api', require('./routes/user'));
 
+//Include sockets
+require('./sockets/sockets')(io);
+
 
 //============ GET ============= //
 
@@ -55,6 +61,6 @@ app.get('/', function (req, res) {
 
 // Start server
 const PORT = process.env.PORT || 8081;
-app.listen(PORT, () =>
+http.listen(PORT, () =>
     console.log(`Server running on port: ${PORT}`)
 );
