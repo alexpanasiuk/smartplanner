@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Projects from '../../components/projects/projects';
-import {addProject, updateProject, deleteProject} from '../../actions';
+import Projects from '../../../components/app/projects/projects';
+import {addProject, updateProject, deleteProject} from '../../../actions';
 
 export default class ProjectsContainer extends Component {
     
@@ -34,7 +34,7 @@ export default class ProjectsContainer extends Component {
                 addProject={this.addProject} 
                 updateProject={this.updateProject}
                 deleteProject={this.deleteProject}
-                setProject={this.props.setProject}
+                setContent={this.props.setContent}
             />
         )
     }

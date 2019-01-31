@@ -1,0 +1,40 @@
+.project {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.project__title {
+    font-size: 25px;
+    columns: #333333;
+    margin-bottom: 30px;
+}
+
+.addTask {
+    display: block;
+    text-decoration: none;
+    color: #aeaeae;
+    margin-top: 15px;
+}
+
+.addTask:hover {
+    color: #c5382b;
+    cursor: pointer;
+}
+
+.addTask:hover .plus {
+    background: #c5382b;
+    color: #fff;
+}
+
+.plus {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-right: 4px;
+    border-radius: 50%;
+    padding-right: 0.5px;
+}

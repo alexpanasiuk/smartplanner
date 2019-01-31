@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
 import FontAwesome from 'react-fontawesome';
 import css from './projects.module.css';
-import AddProject from '../../components/forms/addProject'
-import AddUser from '../forms/addUser';
+import AddProject from '../../../components/forms/addProject'
+import AddUser from '../../forms/addUser';
 import axios from 'axios';
 
 export default class Projects extends Component {
@@ -66,6 +66,7 @@ export default class Projects extends Component {
     }
 
     openAddUser = (e) => {
+        e.stopPropagation();
         let parent = e.target.parentNode;
         while (!parent.dataset.projectid){
             parent = parent.parentNode;
@@ -92,12 +93,14 @@ export default class Projects extends Component {
             });
     }
 
+    setProject = (e) => this.props.setContent(e, 'PROJECT');
+
     renderProjects = (projects) => {
         let updatedProject = this.state.updatedProject;
         return projects.length !== 0
             ? projects.map( (project , i) => (
                 !updatedProject || (updatedProject._id !== project._id)
-                    ? <li key={i} className={css.project} data-projectid={project._id} onClick={this.props.setProject}>
+                    ? <li key={i} className={css.project} data-projectid={project._id} onClick={this.setProject}>
                         {project.name}
                         <FontAwesome name='ellipsis-h' className={css.ellipsis} onClick={this.showDropdown}/>
                         <ul className={css.dropdown}>

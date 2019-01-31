@@ -2,12 +2,15 @@ const express = require('express');
 const router = express.Router();
 const DB_ERROR_CODE = 500;
 
+// Include middleware
+const { auth } = require('../middleware/auth');
+
 // Include models
 const { Project } = require('../models/project');
 
 // =========== POST ===============
 
-router.post('/addTask', (req, res) => {
+router.post('/addTask', auth, (req, res) => {
     const {name, creator, finishTime, finished, projectId} = req.body;
 
     Project.findById(projectId)
@@ -37,7 +40,7 @@ router.post('/addTask', (req, res) => {
 
 // =========== UPDATE ===============
 
-router.post('/updateTask', (req, res) => {
+router.post('/updateTask', auth, (req, res) => {
     const {name, creator, finishTime, finished, timeSetted, projectId, taskId} = req.body;
     Project.findOneAndUpdate(
         {'_id': projectId , 'tasks._id': taskId},
@@ -66,7 +69,7 @@ router.post('/updateTask', (req, res) => {
 
 // ======== DELETE =========
 
-router.delete('/deleteTask', (req, res) => { 
+router.delete('/deleteTask', auth, (req, res) => { 
     const {projectId, taskId} = req.body; 
     Project.findOneAndUpdate({
         '_id': projectId },

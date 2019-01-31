@@ -46,7 +46,7 @@ router.get('/getProject', (req, res) => {
         });
 });
 
-router.get('/addUserToProject/:secret/:projectId/:userId', (req, res) => {
+router.get('/addUserToProject/:secret/:projectId/:userId', auth, (req, res) => {
     const {secret, projectId, userId} = req.params;
     let _project = {};
     let _user = {};
@@ -93,7 +93,7 @@ router.get('/addUserToProject/:secret/:projectId/:userId', (req, res) => {
 
 //============ POST ============= //
 
-router.post('/addProject', (req, res) => {
+router.post('/addProject', auth, (req, res) => {
     const project = new Project(req.body);
     let _project = {};
 
@@ -125,7 +125,7 @@ router.post('/addProject', (req, res) => {
         });
 });
 
-router.post('/sendInviteLink', (req, res) => {
+router.post('/sendInviteLink', auth, (req, res) => {
     const {projectId, userEmail} = req.body;
     let _project = {};
     Project.findById(projectId)
