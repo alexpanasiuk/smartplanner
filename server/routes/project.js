@@ -7,6 +7,7 @@ const { auth } = require('../middleware/auth');
 const DB_ERROR_CODE = 500;
 
 // Include models
+const mongoose = require('mongoose');
 const { User } = require('../models/user');
 const { Project } = require('../models/project');
 
@@ -213,12 +214,12 @@ router.delete('/deleteProject', auth, (req, res) => {
         })
 
         .then (project => {
-            return User.update(
-                {'_id': {$in: _project.members}},
+            return User.updateMany(
+                {'_id': {$in: [..._project.members, _project.creator]}},
                 {$pull: {
-                    'projects': {'_id': projectId} 
-                }},
-                { multi: true })
+                    'projects': _project._id 
+                }}
+            )
         })
 
         .then (result => {

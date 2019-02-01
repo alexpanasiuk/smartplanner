@@ -27,7 +27,10 @@ const userSchema = new mongoose.Schema({
         required: true,
 		maxlength: 100
 	},
-	projects: [ObjectId],
+	projects: [{
+		type: ObjectId,
+		ref: 'Project'
+	}],
 	activated: {
 		type: Boolean,
 		default: false

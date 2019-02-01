@@ -9,9 +9,7 @@ import ContentWrapper from '../../components/app/contentwrapper/content_wrapper'
 class AppContainer extends Component {
 
     state = {
-        showAddTask: false,
         content: '',
-        updatedTask: null,
         showMobileMenu: false,
         contentType: null
     }
@@ -24,10 +22,11 @@ class AppContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let currentContent = this.state.content;
-        if (currentContent) {
+        const currentContent = this.state.content;
+        const nextContent = nextProps.projects.find(project => project._id === currentContent._id);
+        if (nextContent) {
             this.setState({
-                content: nextProps.projects.find(project => project._id === currentContent._id),
+                content: nextContent,
                 contentType: 'PROJECT'
             })
         } else {
@@ -47,9 +46,10 @@ class AppContainer extends Component {
     }
 
     setContent = (e, contentType) => {
-        let projectId = e.target.dataset.projectid;
+        const projectId = e.target.dataset.projectid;
         this.setState({
             content: this.props.projects.find(project => project._id === projectId),
+            showMobileMenu: false,
             contentType
         })
     }
