@@ -102,6 +102,15 @@ export function deleteProject({projectId}) {
     }
 }
 
+export function addComment({projectId, taskId, text}) {
+    const request = axios.post('/api/addComment', {projectId, taskId, text})
+        .then(response => response.data);
+    return {
+        type: 'ADD_COMMENT',
+        payload: request
+    }
+}
+
 export function connectToSocket(user) {
     return {
         type: 'CONNECT_TO_SOCKET',

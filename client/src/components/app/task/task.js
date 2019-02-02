@@ -15,7 +15,10 @@ export default class Task extends Component {
                         <FontAwesome name='check-circle'
                             className={`${css.finished} ${task.finished ? css.finishedTrue : ''}`} 
                             onClick={this.props.finishTask}/>
-                        <span className={css.taskText}>{task.name}</span>
+                        <span className={css.taskText}>
+                            {task.name}
+                            <FontAwesome name='commenting-o' className={css.icon} onClick={this.props.toggleComments} />
+                        </span>
                         <div className={css.taskIconsWrapper}>
                             <FontAwesome name='trash' className={css.icon} onClick={this.props.deleteTask} />                           
                             <Dropdown

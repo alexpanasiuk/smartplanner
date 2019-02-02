@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Task from '../../../components/app/task/task';
-import { deleteTask, updateTask } from '../../../actions';
+import { deleteTask, updateTask, addComment } from '../../../actions';
+import Popup from '../../../hoc/popup/popup';
+import Comments from '../../../components/app/comments/comments';
+
 class TaskContainer extends Component {
 
     state = {
         date: new Date(),
         time: '',
-        isValidTime: true
+        isValidTime: true,
+        showComments: false,
+        commentText: ''
+    }
+
+    toggleComments = () => this.setState({showComments: !this.state.showComments})
+
+    handleCommentText = (e) => this.setState({commentText: e.target.value});
+
+    addComment = (e) => {
+        e.preventDefault();
+        let text = this.state.commentText;
+        text = text.trim();
+        this.props.dispatch(addComment({
+            projectId: this.props.project._id,
+            taskId: this.props.task._id,
+            text
+        }));
+        this.setState({commentText: ''});
     }
 
     handleCalendarChange = (date) => this.setState({ date })
@@ -76,18 +97,33 @@ class TaskContainer extends Component {
 
     render() {
         return (
-            <Task
-                handleCalendarChange={this.handleCalendarChange}
-                handleTimeChange={this.handleTimeChange}
-                updateTaskTime={this.updateTaskTime}
-                finishTask={this.finishTask}
-                deleteTask={this.deleteTask}
-                prepareToUpdateTask={this.props.prepareToUpdateTask}
-                task={this.props.task}
-                hiddenTasks={this.props.hiddenTasks}
-                i={this.props.i}
-                {...this.state}
-            />
+            <React.Fragment>
+                <Task
+                    handleCalendarChange={this.handleCalendarChange}
+                    handleTimeChange={this.handleTimeChange}
+                    updateTaskTime={this.updateTaskTime}
+                    finishTask={this.finishTask}
+                    deleteTask={this.deleteTask}
+                    toggleComments={this.toggleComments}
+                    prepareToUpdateTask={this.props.prepareToUpdateTask}
+                    task={this.props.task}
+                    hiddenTasks={this.props.hiddenTasks}
+                    i={this.props.i}
+                    {...this.state}
+                />
+                {this.state.showComments
+                    ?   <Popup title="Комментарии" close={this.toggleComments}>
+                            <Comments 
+                                task={this.props.task}
+                                handleCommentText={this.handleCommentText}
+                                commentText={this.state.commentText}
+                                addComment={this.addComment}
+                            />
+                        </Popup>
+                    :   null
+                }
+                
+            </React.Fragment>
         )
     }
 }

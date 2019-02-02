@@ -5,6 +5,7 @@
     background: rgba(0, 0, 0, 0.6);
     top: 0px;
     left: 0px;
+    z-index: 10000;
 }
 
 .popup-header {

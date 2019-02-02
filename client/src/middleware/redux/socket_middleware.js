@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 export default function socketMiddleware(url) {
     let socket;
-    const isProjectUpdated = ['ADD_TASK', 'UPDATE_TASK', 'DELETE_TASK', 'UPDATE_PROJECT', 'DELETE_PROJECT'];
+    const isProjectUpdated = ['ADD_TASK', 'UPDATE_TASK', 'DELETE_TASK', 'UPDATE_PROJECT', 'DELETE_PROJECT', 'ADD_COMMENT'];
 
     return storeAPI => next => action => {
         switch(action.type) {

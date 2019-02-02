@@ -38,6 +38,32 @@ router.post('/addTask', auth, (req, res) => {
         });
 });
 
+router.post('/addComment', auth, (req, res) => {
+    const {projectId, taskId, text} = req.body;
+    const userId = req.user._id;
+    const userName = req.user.name;
+    Project.findOneAndUpdate(
+        {'_id': projectId , 'tasks._id': taskId},
+        {'$push' : {
+            'tasks.$.comments': {
+                creatorId: userId,
+                creatorName: userName,
+                text,
+                time: Date.now()
+            }
+        }},
+        {new: true}
+    )
+        .then(project => res.json({
+            success: true,
+            project
+        }))
+
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(DB_ERROR_CODE);
+        }); 
+});
 // =========== UPDATE ===============
 
 router.post('/updateTask', auth, (req, res) => {

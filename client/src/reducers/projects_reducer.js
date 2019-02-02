@@ -55,6 +55,16 @@ export default function(state = [], action) {
                 }
             }
             return newState;
+        
+        case 'ADD_COMMENT': 
+            newState = [...state];
+            for (let i = 0; i < newState.length; i++) {
+                if (newState[i]._id === action.payload.project._id) {
+                    newState[i] = action.payload.project;
+                    break;
+                }
+            }
+            return newState;
         default:
             return state;
     }
