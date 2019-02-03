@@ -47,7 +47,7 @@ router.get('/getProject', (req, res) => {
         });
 });
 
-router.get('/addUserToProject/:secret/:projectId/:userId', auth, (req, res) => {
+router.get('/addUserToProject/:secret/:projectId/:userId', (req, res) => {
     const {secret, projectId, userId} = req.params;
     let _project = {};
     let _user = {};
